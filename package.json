@@ -57,5 +57,9 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"dayjs": "^1.11.13",
+		"lucide-svelte": "^0.475.0"
 	}
 }
