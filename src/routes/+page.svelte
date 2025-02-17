@@ -8,12 +8,13 @@
     import Sidebar from './Sidebar.svelte';
   
     let currentDate = dayjs();
+    
+    //すべてのイベントのリスト(後で名前変える)
     let events = [
       { date: dayjs('2025-02-11'), title: '建国記念日' },
       { date: dayjs('2025-02-24'), title: '天皇誕生日 振替休日' },
-      
     ];
-  
+
     function previousPeriod() {
       currentDate = $viewType === 'month' ? currentDate.subtract(1, 'month') : currentDate.subtract(1, 'week');
     }
@@ -23,7 +24,7 @@
     }
   
     onMount(() => {
-      //Todo: APIサーバからイベント情報を取得する
+      //この部分でAPIからスケジュールを取得する
     });
   </script>
   

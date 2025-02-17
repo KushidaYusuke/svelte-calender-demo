@@ -5,12 +5,10 @@
     export let currentDate;
     export let events;
   
-    $: weekDays = getWeekDays(currentDate);
-  
-    function getWeekDays(date) {
-      const startOfWeek = $weekStart === 'monday' ? date.startOf('isoWeek') : date.startOf('week');
-      return Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day'));
-    }
+    
+    $: startOfWeek = $weekStart === 'monday' ? currentDate.startOf('isoWeek') : currentDate.startOf('week');
+    $: weekDays = Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day'));
+
   
     function getEventsForDay(day) {
       return events.filter(event => event.date.isSame(day, 'day'));
