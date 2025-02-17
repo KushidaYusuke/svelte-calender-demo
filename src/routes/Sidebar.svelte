@@ -1,12 +1,15 @@
 <script lang="ts">
     import { Calendar } from 'lucide-svelte';
     import dayjs from '$lib/utils/dayjs';
-    export let currentDate: dayjs.Dayjs;
-    export let events: Array<{ date: dayjs.Dayjs; title: string }>;
+    interface PropsSchema {
+      currentDate: dayjs.Dayjs;
+      events: Array<{ date: dayjs.Dayjs; title: string }>;
+    }
+    let { currentDate, events }: PropsSchema = $props();
   
-    $: currentMonthEvents = events.filter(event => 
+    let currentMonthEvents = $derived(events.filter(event => 
        dayjs(event.date).isSame(currentDate, 'month')
-      );
+      ));
 
   </script>
   

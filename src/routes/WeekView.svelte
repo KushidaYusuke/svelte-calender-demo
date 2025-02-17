@@ -2,21 +2,26 @@
     import { weekStart } from '$lib/stores/calendarStore';
     import dayjs from '$lib/utils/dayjs';
   
-    export let currentDate;
-    export let events;
+    interface PropsSchema {
+      currentDate: dayjs.Dayjs;
+      events: Array<{ date: dayjs.Dayjs; title: string }>;
+    }
+
+    let { currentDate, events }: PropsSchema = $props();
   
     
-    $: startOfWeek = $weekStart === 'monday' ? currentDate.startOf('isoWeek') : currentDate.startOf('week');
-    $: weekDays = Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day'));
+    let startOfWeek = $derived.by(() => $weekStart === 'monday' ? currentDate.startOf('isoWeek') : currentDate.startOf('week'));
+    let  weekDays = $derived(Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day')));
 
   
-    function getEventsForDay(day) {
+    function getEventsForDay(day: dayjs.Dayjs) {
       return events.filter(event => event.date.isSame(day, 'day'));
     }
   
-    $: weekDayLabels = $weekStart === 'monday'
+    let weekDayLabels = $derived.by(() => $weekStart === 'monday'
       ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    );
   </script>
   
   <div class="flex-1 grid grid-cols-7 grid-rows-25 gap-px bg-gray-200">

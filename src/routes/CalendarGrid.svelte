@@ -1,25 +1,30 @@
 <script lang="ts">
     import { weekStart } from '$lib/stores/calendarStore';
     import dayjs from '$lib/utils/dayjs';
+    
+    interface PropsSchema {
+      currentDate: dayjs.Dayjs;
+      events: Array<{ date: dayjs.Dayjs; title: string }>;
+    }
+    let { currentDate, events }: PropsSchema = $props();
   
-    export let currentDate;
-    export let events;
   
-    $: firstDayOfMonth = currentDate.startOf('month');
-    $: daysInMonth = currentDate.daysInMonth();
-    $: startOfGrid = $weekStart === 'monday' 
+    let firstDayOfMonth = $derived(currentDate.startOf('month'));
+    let startOfGrid = $derived.by(() => $weekStart === 'monday' 
       ? firstDayOfMonth.startOf('isoWeek') 
-      : firstDayOfMonth.startOf('week');
+      : firstDayOfMonth.startOf('week')
+    );
   
-    $: weekDays = $weekStart === 'monday'
+    let weekDays = $derived.by(() => $weekStart === 'monday'
       ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    );
   
-    function getEventsForDay(day) {
+    function getEventsForDay(day: dayjs.Dayjs) {
       return events.filter(event => event.date.isSame(day, 'day'));
     }
   
-    function isCurrentMonth(day) {
+    function isCurrentMonth(day: dayjs.Dayjs) {
       return day.month() === currentDate.month();
     }
   </script>
