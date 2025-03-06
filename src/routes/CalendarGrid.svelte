@@ -1,7 +1,10 @@
 <script lang="ts">
     import { weekStart } from '$lib/stores/calendarStore';
     import dayjs from '$lib/utils/dayjs';
-    
+    import * as Sheet from "$lib/components/ui/sheet/index.js";
+    import { Button } from "$lib/components/ui/button/index.js";
+    import { Input } from "$lib/components/ui/input/index.js";
+    import { Label } from "$lib/components/ui/label/index.js";
     interface PropsSchema {
       currentDate: dayjs.Dayjs;
       events: Array<{ date: dayjs.Dayjs; title: string }>;
@@ -39,7 +42,23 @@
       <div class="bg-white p-2 {isCurrentMonth(day) ? 'text-gray-800' : 'text-gray-400'} min-h-[100px]">
         <span class="font-semibold">{day.date()}</span>
         {#each dayEvents as event}
-          <div class="mt-1 text-xs bg-blue-100 text-blue-800 p-1 rounded">{event.title}</div>
+        <Sheet.Root>
+          <Sheet.Trigger class="mt-1 text-xs bg-blue-100 text-blue-800 p-1 rounded">{event.title}</Sheet.Trigger>
+          <Sheet.Content>
+            <Sheet.Header>
+              <Sheet.Title>{event.title}のスケジュール詳細</Sheet.Title>
+              <Sheet.Description>
+                担当者
+                - 櫛田  
+                参加者: 
+                - 田中太郎, 
+                - 山田
+                定員: 10人
+              </Sheet.Description>
+            </Sheet.Header>
+          </Sheet.Content>
+        </Sheet.Root>
+          <!-- <div class="mt-1 text-xs bg-blue-100 text-blue-800 p-1 rounded">{event.title}</div> -->
         {/each}
       </div>
     {/each}

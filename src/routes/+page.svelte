@@ -1,4 +1,8 @@
 <script lang="ts">
+    import * as Sheet from "$lib/components/ui/sheet/index.js";
+    import { Button } from "$lib/components/ui/button/index.js";
+    import { Input } from "$lib/components/ui/input/index.js";
+    import { Label } from "$lib/components/ui/label/index.js";
     import { onMount } from 'svelte';
     import { viewType, weekStart } from '$lib/stores/calendarStore';
     import dayjs from '$lib/utils/dayjs';
