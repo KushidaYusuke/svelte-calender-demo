@@ -41,6 +41,7 @@
           {/if}
           {#each getEventsForDay(day) as event}
             {#if event.date.hour() === hour}
+              
               <div class="mt-4 text-xs bg-blue-100 text-blue-800 p-1 rounded">
                 {event.title}
               </div>
