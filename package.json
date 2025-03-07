@@ -65,6 +65,7 @@
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.20",
-		"dayjs": "^1.11.13"
+		"dayjs": "^1.11.13",
+		"zod": "^3.24.2"
 	}
 }
